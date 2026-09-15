@@ -6,3 +6,8 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Generated test artifacts
+/.playwright-mcp/
+/allure-report/
+/allure-results/
