@@ -8,7 +8,6 @@ test("Api get method", async ({ request, apiToken }) => {
     })
 
     const responseObject = await response.json()
-
     console.log(responseObject)
 })
 

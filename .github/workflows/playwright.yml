@@ -18,6 +18,9 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
+      env:
+        CONDUIT_EMAIL: ${{ secrets.CONDUIT_EMAIL }}
+        CONDUIT_PASSWORD: ${{ secrets.CONDUIT_PASSWORD }}
       run: npx playwright test tests/Practice/api.spec.ts --grep @smoke
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
