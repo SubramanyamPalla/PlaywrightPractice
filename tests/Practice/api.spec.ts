@@ -1,19 +1,24 @@
-import { expect, test } from '@playwright/test'
+import { expect, test } from '../fixtures/api.fixture'
 
-test("Api get method", async ({ request }) => {
-    const response = await request.get('https://conduit-api.bondaracademy.com/api/tags')
+test("Api get method", async ({ request, apiToken }) => {
+    const response = await request.get('https://conduit-api.bondaracademy.com/api/tags', {
+        headers: {
+            Authorization: `Token ${apiToken}`
+        }
+    })
 
     const responseObject = await response.json()
 
     console.log(responseObject)
 })
 
-test("Api Post method @smoke", async ({ request }) => {
+test("Api Post method ", { tag: '@smoke' }, async ({ request, apiToken }) => {
 
     const title = `Automation122323${Date.now()}`;
+
     const response = await request.post('https://conduit-api.bondaracademy.com/api/articles/', {
         headers: {
-            Authorization: "Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozNTc0Nn0sImlhdCI6MTc4OTQ2NDgyNiwiZXhwIjoxNzk0NjQ4ODI2fQ.SA1w6_PnjaldserHCmaog1eX1MXLqRB7iTWbC3vnXso"
+            Authorization: `Token ${apiToken}`
         },
 
         data: {
