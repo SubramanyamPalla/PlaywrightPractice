@@ -17,6 +17,13 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Verify API secrets are available
+      env:
+        CONDUIT_EMAIL: ${{ secrets.CONDUIT_EMAIL }}
+        CONDUIT_PASSWORD: ${{ secrets.CONDUIT_PASSWORD }}
+      run: |
+        test -n "$CONDUIT_EMAIL" || { echo "Missing GitHub Actions secret: CONDUIT_EMAIL"; exit 1; }
+        test -n "$CONDUIT_PASSWORD" || { echo "Missing GitHub Actions secret: CONDUIT_PASSWORD"; exit 1; }
     - name: Run Playwright tests
       env:
         CONDUIT_EMAIL: ${{ secrets.CONDUIT_EMAIL }}
