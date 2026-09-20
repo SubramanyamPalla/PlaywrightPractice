@@ -79,7 +79,7 @@ test("API Post Method", { tag: '@smoke' }, async ({ request }) => {
 
     //Fetch the slug value
     const slugValue = postResponse.article.slug
-    console.log("The slug value is: " + slugValue)
+    console.log("The slug value is added after createing the new branch " + slugValue)
 
     //use the post method slug value as input for the get method
     const articleResponse = await request.get(`https://conduit-api.bondaracademy.com/api/articles/${slugValue}`)
