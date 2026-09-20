@@ -1,6 +1,27 @@
 
 import { test, expect } from "@playwright/test"
 
+let extractToken: string
+test.beforeAll(async ({ request }) => {
+    const PostResponse = await request.post('https://conduit-api.bondaracademy.com/api/users/login', {
+        data: {
+            user:
+            {
+                "email": "testgen@test.com",
+                "password": "test12345678"
+            }
+        }
+    }
+)
+
+    const messageJson = await PostResponse.json()
+    console.log(messageJson)
+
+    extractToken = messageJson.user.token
+    console.log("The token from the Login api request is: " + extractToken)
+})
+
+
 
 test("Get API method ", async ({ request }) => {
 
@@ -33,13 +54,13 @@ test("Get API method ", async ({ request }) => {
 
 //Post Method
 
-test("API Post Method",{tag:'@smoke'}, async ({ request }) => {
+test("API Post Method", { tag: '@smoke' }, async ({ request }) => {
 
     const title = `Automation122323${Date.now()}`;
 
     const response = await request.post('https://conduit-api.bondaracademy.com/api/articles/', {
         headers: {
-            Authorization: "Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozNTc0Nn0sImlhdCI6MTc4OTgxODEwOSwiZXhwIjoxNzk1MDAyMTA5fQ.dwxjW2rajUc0NDLCSE3an1JaSXypdMRcNt-U-aqqJpg"
+            Authorization: `Token ${extractToken}`
         },
 
         data: {
@@ -58,7 +79,7 @@ test("API Post Method",{tag:'@smoke'}, async ({ request }) => {
 
     //Fetch the slug value
     const slugValue = postResponse.article.slug
-    console.log("The slug value is: "+slugValue)
+    console.log("The slug value is: " + slugValue)
 
     //use the post method slug value as input for the get method
     const articleResponse = await request.get(`https://conduit-api.bondaracademy.com/api/articles/${slugValue}`)
