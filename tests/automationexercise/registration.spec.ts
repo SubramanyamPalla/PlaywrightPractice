@@ -13,6 +13,7 @@ test.describe('Account Registration and Login', () => {
 
     const name = 'Jordan Blake';
     const uniqueEmail = `jordan.blake.qa.test${Date.now()}@example.com`;
+    console.log(uniqueEmail)
 
     // 1. Navigate to https://automationexercise.com/
     await homePage.goto();

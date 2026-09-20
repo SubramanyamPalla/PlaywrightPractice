@@ -1,14 +1,13 @@
 import { expect, test } from '../fixtures/api.fixture'
 
 test("Api get method", async ({ request, apiToken }) => {
-    const response = await request.get('https://conduit-api.bondaracademy.com/api/tags', {
-        headers: {
-            Authorization: `Token ${apiToken}`
-        }
-    })
-
+    const response = await request.get('https://conduit-api.bondaracademy.com/api/tags') 
     const responseObject = await response.json()
     console.log(responseObject)
+    const statuscode=response.status()
+    console.log(statuscode)
+    const responsetext=response.text()
+    console.log(responsetext)
 })
 
 test("Api Post method ", { tag: '@smoke' }, async ({ request, apiToken }) => {
